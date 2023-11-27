@@ -6,14 +6,13 @@ import java.util.function.Supplier;
 public class OrElse_OrElseGet {
     public static void main(String[] args) {
         String username = null;
-        String name = Optional.ofNullable(username).orElse(getDefaultName());
+        // orElse: Optional에 값이 있든 없든, 호출될 가능성이 있다.
+        String defaultName = getDefaultName();
+        String name = Optional.ofNullable(username).orElse(defaultName);
 
-//        Supplier<String> supplier = () -> getDefaultName();
-        System.out.println("ofNullable Called");
-        String name2 = Optional.ofNullable(username).orElseGet(() -> getDefaultName());
-
-        System.out.println("name = " + name);
-        System.out.println("name2 = " + name2);
+        // orElseGet: Optional에 값이 없는 경우만 호출된다.
+        Supplier<String> supplier = () -> getDefaultName();
+        String name2 = Optional.ofNullable(username).orElseGet(supplier);
     }
 
     static String getDefaultName() {
